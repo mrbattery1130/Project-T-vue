@@ -1,20 +1,20 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
-import bookConfig from './book' // 引入图书管理路由文件
+// import bookConfig from './book' // 引入图书管理路由文件
 import pluginsConfig from './plugin'
 
 // eslint-disable-next-line import/no-mutable-exports
-let homeRouter = [
-  {
-    title: '林间有风',
-    type: 'view',
-    name: Symbol('about'),
-    route: '/about',
-    filePath: 'view/about/about.vue',
-    inNav: true,
-    icon: 'iconfont icon-iconset0103',
-    order: 1,
-  },
+const homeRouter = [
+  // {
+  //   title: '林间有风',
+  //   type: 'view',
+  //   name: Symbol('about'),
+  //   route: '/about',
+  //   filePath: 'view/about/about.vue',
+  //   inNav: true,
+  //   icon: 'iconfont icon-iconset0103',
+  //   order: 1,
+  // },
   {
     title: '日志管理',
     type: 'view',
@@ -44,18 +44,18 @@ let homeRouter = [
     inNav: false,
     icon: 'iconfont icon-rizhiguanli',
   },
-  bookConfig,
+  // bookConfig,
   adminConfig,
 ]
 
-// 接入插件
-const plugins = [...pluginsConfig]
-filterPlugin(homeRouter)
-homeRouter = homeRouter.concat(plugins)
-
-// 处理顺序
-homeRouter = Utils.sortByOrder(homeRouter)
-deepReduceName(homeRouter)
+// // 接入插件
+// const plugins = [...pluginsConfig]
+// filterPlugin(homeRouter)
+// homeRouter = homeRouter.concat(plugins)
+//
+// // 处理顺序
+// homeRouter = Utils.sortByOrder(homeRouter)
+// deepReduceName(homeRouter)
 
 export default homeRouter
 

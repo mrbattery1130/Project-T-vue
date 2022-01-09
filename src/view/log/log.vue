@@ -7,7 +7,7 @@
           <lin-search @query="onQueryChange" ref="searchKeywordDom" />
           <el-dropdown
             size="medium"
-            style="margin: 0 10px;"
+            style="margin: 0 10px"
             @command="handleCommand"
             v-permission="'查询日志记录的用户'"
           >
@@ -60,7 +60,7 @@
           <div class="more" :class="{ nothing: finished }">
             <i v-if="more" class="iconfont icon-loading"></i>
             <div v-show="!more && !finished" @click="nextPage">
-              <span>查看更多</span> <i class="iconfont icon-gengduo" style="font-size:14px"></i>
+              <span>查看更多</span> <i class="iconfont icon-gengduo" style="font-size: 14px"></i>
             </div>
             <div v-if="finished">
               <span>{{ totalCount === 0 ? '暂无数据' : '没有更多数据了' }}</span>
@@ -331,7 +331,7 @@ export default {
       .title {
         height: 59px;
         line-height: 59px;
-        color: #4c76af;
+        color: #4cb094;
         font-size: 16px;
         font-weight: 500;
       }

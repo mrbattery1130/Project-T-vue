@@ -1,5 +1,5 @@
 <template>
-  <div style="height:100%;">
+  <div style="height: 100%">
     <el-container>
       <el-aside :width="sidebarWidth" class="aside" :style="asideStyle">
         <sidebar :isCollapse="isCollapse" :is-phone="isPhone"></sidebar>
@@ -174,7 +174,7 @@ export default {
 
 <style lang="scss" scoped>
 .aside {
-  background: rgb(25, 42, 94);
+  background: #195e58;
   overflow-x: hidden;
 
   &::-webkit-scrollbar {

@@ -1,7 +1,7 @@
 <template>
-  <div :class="!elMenuCollapse ? 'logo' : 'mobile-logo'">
-    <img :src="!elMenuCollapse ? logo : mobileLogo" alt="logo" />
-  </div>
+  <!--  <div :class="!elMenuCollapse ? 'logo' : 'mobile-logo'">-->
+  <!--    <img :src="!elMenuCollapse ? logo : mobileLogo" alt="logo" />-->
+  <!--  </div>-->
 </template>
 
 <script>
@@ -18,7 +18,7 @@ export default {
   data() {
     return {
       logo,
-      mobileLogo
+      mobileLogo,
     }
   },
 }
@@ -34,7 +34,7 @@ export default {
   font-size: 30px;
   color: #fff;
   transition: all 0.5s ease-in-out;
-  background-color: #122150;
+  background-color: #114d4f;
   transition: all 0.3s linear;
   position: sticky;
   top: 0;
@@ -52,7 +52,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #122150;
+  background-color: #114d4f;
   transition: all 0.3s linear;
 
   img {

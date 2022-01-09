@@ -1,22 +1,24 @@
 <template>
   <div class="login">
-    <div class="team-name hidden-sm-and-down"><img src="@/assets/image/login/team-name.png" alt="logo" /></div>
+    <div class="team-name hidden-sm-and-down">
+      <!--      <img src="@/assets/image/login/team-name.png" alt="logo"/>-->
+    </div>
     <div class="form-box" v-loading="loading" element-loading-background="rgba(0, 0, 0, 0)">
-      <div class="title"><h1 title="Lin">Lin CMS</h1></div>
+      <div class="title"><h1 title="Lin">Project T</h1></div>
       <form class="login-form" autocomplete="off" @submit.prevent="throttleLogin()">
-        <div class="form-item nickname">
+        <div class="form-item">
           <span class="icon account-icon"></span>
           <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名" />
         </div>
-        <div class="form-item password">
+        <div class="form-item">
           <span class="icon secret-icon"></span>
           <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
         </div>
-        <div class="form-item password" v-if="captchaImage">
+        <div class="form-item" v-if="captchaImage">
           <img class="captcha" :src="captchaImage" />
           <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
         </div>
-        <button class="submit-btn" type="submit">登录</button>
+        <button class="el-button" type="submit">登录</button>
       </form>
     </div>
   </div>
@@ -112,10 +114,10 @@ export default {
 
 <style lang="scss">
 .login {
-  width: 100%;
-  height: 100%;
-  background-size: auto;
-  background: #1b2c5f url('../../assets/image/login/login-ba.png') no-repeat center center;
+  //width: 100%;
+  //height: 100%;
+  //background-size: auto;
+  //background: #1b2c5f url('../../assets/image/login/login-ba.png') no-repeat center center;
 
   .team-name {
     position: fixed;

@@ -1,7 +1,8 @@
 <template>
   <div class="container" ref="container">
-    <img class="page-404" src="../../assets/image/error-page/404.png" alt="" />
-    <img class="page-logo" src="../../assets/image/error-page/logo.png" alt="" />
+    <p>404</p>
+    <!--    <img class="page-404" src="../../assets/image/error-page/404.png" alt="" />-->
+    <!--    <img class="page-logo" src="../../assets/image/error-page/logo.png" alt="" />-->
   </div>
 </template>
 
@@ -27,10 +28,12 @@ export default {
   justify-content: center;
   align-items: center;
   position: relative;
+
   .page-404 {
     width: 349px;
     height: 190px;
   }
+
   .page-logo {
     position: absolute;
     right: 40px;

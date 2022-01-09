@@ -1,14 +1,14 @@
 <template>
   <div class="app-sidebar">
     <logo :elMenuCollapse="elMenuCollapse" />
-    <div style="margin-bottom:50px">
+    <div style="margin-bottom: 50px">
       <search></search>
       <el-menu
         ref="meun"
         class="el-menu-vertical-demo"
         :default-active="defaultActive"
         :collapse="elMenuCollapse"
-        background-color="#192A5E"
+        background-color="#195e58"
         text-color="rgba(196,201,210,1)"
         active-text-color="#1890ff"
       >
@@ -63,7 +63,7 @@ export default {
 }
 
 .app-sidebar {
-  background: #192a5e;
+  background: #195e58;
 
   &::-webkit-scrollbar {
     width: 0px;
