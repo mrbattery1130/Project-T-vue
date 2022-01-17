@@ -16,6 +16,16 @@ const homeRouter = [
   //   order: 1,
   // },
   {
+    route: "/icon_util/icon_spider",
+    name: null,
+    title: '图标搜索',
+    type: 'view', // 类型: folder, tab, view
+    icon: 'iconfont icon-tushuguanli',
+    filePath: 'view/icon_util/IconSpider.vue', // 文件路径
+    order: null,
+    inNav: true,
+  },
+  {
     title: '日志管理',
     type: 'view',
     name: Symbol('log'),
