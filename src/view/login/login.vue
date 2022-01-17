@@ -8,15 +8,15 @@
       <form class="login-form" autocomplete="off" @submit.prevent="throttleLogin()">
         <div class="form-item">
           <span class="icon account-icon"></span>
-          <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名" />
+          <input type="text" v-model="account.username" autocomplete="off" placeholder="请填写用户名"/>
         </div>
         <div class="form-item">
           <span class="icon secret-icon"></span>
-          <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码" />
+          <input type="password" v-model="account.password" autocomplete="off" placeholder="请填写用户登录密码"/>
         </div>
         <div class="form-item" v-if="captchaImage">
-          <img class="captcha" :src="captchaImage" />
-          <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码" />
+          <img class="captcha" :src="captchaImage"/>
+          <input type="password" v-model="account.captcha" autocomplete="off" placeholder="请填写验证码"/>
         </div>
         <button class="el-button" type="submit">登录</button>
       </form>
@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import { reactive, ref, onMounted, getCurrentInstance } from 'vue'
-import { useStore } from 'vuex'
-import { useRouter } from 'vue-router'
+import {reactive, ref, onMounted, getCurrentInstance} from 'vue'
+import {useStore} from 'vuex'
+import {useRouter} from 'vue-router'
 import axios from 'lin/plugin/axios'
 import UserModel from '@/lin/model/user'
 import Utils from '@/lin/util/util'
@@ -42,7 +42,7 @@ export default {
     const store = useStore()
     const router = useRouter()
     const throttleLogin = ref(null)
-    const { ctx } = getCurrentInstance()
+    const {ctx} = getCurrentInstance()
 
     const account = reactive({
       username: '',
@@ -54,7 +54,7 @@ export default {
      * 根据账号密码登录，拿到 token 并储存
      */
     const login = async () => {
-      const { username, password, captcha } = account
+      const {username, password, captcha} = account
       try {
         loading.value = true
         await UserModel.getToken(username, password, captcha, tag)
@@ -75,7 +75,7 @@ export default {
         method: 'POST',
         url: 'cms/user/captcha',
       }).then(result => {
-        ;({ tag } = result)
+        ;({tag} = result)
         captchaImage.value = result.image
       })
     }
@@ -94,13 +94,13 @@ export default {
       }
     }
 
-    // /**
-    //  * 节流登录
-    //  */
-    // onMounted(() => {
-    //   getCaptcha()
-    //   throttleLogin.value = Utils.throttle(login, wait)
-    // })
+    /**
+     * 节流登录
+     */
+    onMounted(() => {
+      //   getCaptcha()
+      throttleLogin.value = Utils.throttle(login, wait)
+    })
 
     return {
       account,
