@@ -94,13 +94,13 @@ export default {
       }
     }
 
-    /**
-     * 节流登录
-     */
-    onMounted(() => {
-      getCaptcha()
-      throttleLogin.value = Utils.throttle(login, wait)
-    })
+    // /**
+    //  * 节流登录
+    //  */
+    // onMounted(() => {
+    //   getCaptcha()
+    //   throttleLogin.value = Utils.throttle(login, wait)
+    // })
 
     return {
       account,
