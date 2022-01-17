@@ -61,7 +61,7 @@ export default {
     const searchIcons = async (packageNameInput) => {
       try {
         iconDataLoading.value = true
-        iconData.value = await IconUtil.searchIcon(packageNameInput)
+        iconData.value = (await IconUtil.searchIcon(packageNameInput))["app_icons"]
         iconDataLoading.value = false
       } catch (error) {
         iconDataLoading.value = false
