@@ -1,5 +1,6 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
+import appRouter from './app'
 // import bookConfig from './book' // 引入图书管理路由文件
 //import pluginsConfig from './plugin'
 
@@ -15,6 +16,7 @@ const homeRouter = [
   //   icon: 'iconfont icon-iconset0103',
   //   order: 1,
   // },
+  appRouter,
   {
     route: "/icon_util/icon_spider",
     name: null,

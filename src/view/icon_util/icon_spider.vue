@@ -1,5 +1,8 @@
 <template>
   <div class="app-container">
+    <div class="header">
+      <div class="title">图书列表</div>
+    </div>
     <div class="filter-container">
       <el-input
         v-model="packageNameInput"
