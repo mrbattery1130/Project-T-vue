@@ -1,7 +1,7 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
 // import bookConfig from './book' // 引入图书管理路由文件
-import pluginsConfig from './plugin'
+//import pluginsConfig from './plugin'
 
 // eslint-disable-next-line import/no-mutable-exports
 const homeRouter = [
@@ -21,7 +21,7 @@ const homeRouter = [
     title: '图标搜索',
     type: 'view', // 类型: folder, tab, view
     icon: 'iconfont icon-tushuguanli',
-    filePath: 'view/icon_util/IconSpider.vue', // 文件路径
+    filePath: 'view/icon_util/icon_spider.vue', // 文件路径
     order: null,
     inNav: true,
   },
