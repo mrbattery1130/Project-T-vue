@@ -1,6 +1,7 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
 import appRouter from './app'
+import iconpackRouter from "@/config/stage/iconpack";
 // import bookConfig from './book' // 引入图书管理路由文件
 //import pluginsConfig from './plugin'
 
@@ -17,6 +18,7 @@ const homeRouter = [
   //   order: 1,
   // },
   appRouter,
+  iconpackRouter,
   {
     route: "/icon_util/icon_spider",
     name: null,

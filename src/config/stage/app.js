@@ -7,14 +7,14 @@ const appRouter = {
     filePath: 'view/app/app_list.vue', // 文件路径
     order: null,
     inNav: true,
-    children: [
-        {
-
-        },
-        {
-
-        },
-    ]
+  // children: [
+  //     {
+  //
+  //     },
+  //     {
+  //
+  //     },
+  // ]
 }
 
 export default appRouter
