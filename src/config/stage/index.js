@@ -1,12 +1,12 @@
 import Utils from '@/lin/util/util'
 import adminConfig from './admin'
 import appRouter from './app'
-import iconpackRouter from "@/config/stage/iconpack";
+import iconpackRouter from "./iconpack";
 // import bookConfig from './book' // 引入图书管理路由文件
 //import pluginsConfig from './plugin'
 
 // eslint-disable-next-line import/no-mutable-exports
-const homeRouter = [
+let homeRouter = [
   // {
   //   title: '林间有风',
   //   type: 'view',
