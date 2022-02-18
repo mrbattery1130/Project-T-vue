@@ -71,7 +71,7 @@ export default {
     const getApps = async () => {
       try {
         appLoading.value = true
-        refreshPagination.value = true
+        refreshPagination.value = false
 
         const data = await appModel.getApps()
         apps.value = data.items
@@ -80,7 +80,7 @@ export default {
         currentPage.value = data.page
 
         appLoading.value = false
-        refreshPagination.value = false
+        refreshPagination.value = true
       } catch (e) {
         appLoading.value = false
         refreshPagination.value = false
