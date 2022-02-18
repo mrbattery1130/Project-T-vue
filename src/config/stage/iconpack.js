@@ -21,7 +21,7 @@ const iconpackRouter = {
       title: '图标包详情',
       type: 'view',
       name: 'IconpackList',
-      route: '/iconpack/list',
+      route: '/iconpack/detail',
       filePath: 'view/iconpack/iconpack_detail.vue',
       inNav: true,
       icon: 'iconfont icon-tushuguanli',
