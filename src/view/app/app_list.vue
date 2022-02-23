@@ -3,32 +3,27 @@
     <div class="container">
       <div class="header">
         <div class="title">App列表</div>
+        <!--  Add Button  -->
+        <el-button type="primary">新建App</el-button>
       </div>
-      <!--  Add Button  -->
-      <el-button type="primary">新建App</el-button>
       <!--    list table-->
       <el-table :data="apps" v-loading="appLoading">
-        <el-table-column type="index" :index="indexMethod" label="序号"/>
-        <el-table-column prop="name" label="App名称"/>
-        <el-table-column prop="name_en" label="App英文名"/>
-        <el-table-column prop="catalogue.name" label="分类"/>
+        <el-table-column type="index" :index="indexMethod" width="80px" label="序号" />
+        <el-table-column prop="id" label="ID" width="80px" />
+        <el-table-column prop="name" label="App名称" />
+        <el-table-column prop="name_en" label="App英文名" />
+        <el-table-column prop="catalogue.name" label="分类" />
         <el-table-column label="包名">
           <template #default="scope">
-            <p v-for="app_rel in scope.row.app_rels" >{{app_rel.package_name}}</p>
+            <el-tag effect="plain" type="info" v-for="n in scope.row.package_names" :key="n"> {{ n }} </el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template #default="scope">
-            <el-button plain size="mini" type="primary"
-                       @click="handleEdit(scope.row.id)">编辑
-            </el-button>
-            <el-button
-              plain size="mini" type="danger"
-              @click="handleDelete(scope.row.id)">删除
-            </el-button>
+            <el-button size="mini" type="primary" @click="handleEdit(scope.row.id)">编辑</el-button>
+            <el-button size="mini" type="danger" @click="handleDelete(scope.row.id)">删除</el-button>
           </template>
         </el-table-column>
-
       </el-table>
     </div>
 
@@ -41,32 +36,48 @@
         v-if="refreshPagination"
         :current-page="currentPage"
         layout="prev, pager, next, jumper"
-        @current-change="handleCurrentChange">
+        @current-change="handleCurrentChange"
+      >
       </el-pagination>
     </div>
     <!-- 编辑页面 -->
     <!--    <book-modify v-else @editClose="editClose" :editBookId="editBookId"></book-modify>-->
+    <el-dialog v-model="showEdit" width="30%" title="编辑">
+      <span>This is a message</span>
+      <el-form>
+        <el-form-item label="123">
+          <el-input />
+        </el-form-item>
+        <el-form-item label="123">
+          <el-input />
+        </el-form-item>
+        <el-form-item label="123">
+          <el-input />
+        </el-form-item>
+      </el-form>
+      <el-button @click="showEdit = false">Cancel</el-button>
+      <el-button type="primary" @click="showEdit = false">Confirm</el-button>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import {onMounted, ref} from "vue";
+import { onMounted, ref } from 'vue'
 import appModel from '@/model/app'
-import appRelModel from '@/model/app_rel'
-import {ElMessage, ElMessageBox} from "element-plus";
+import { ElMessage, ElMessageBox } from 'element-plus'
 
 export default {
-  name: "app_list",
+  name: 'app_list',
   setup() {
     const apps = ref([])
     const editAppId = ref(1)
-    const appLoading = ref(false);
+    const appLoading = ref(false)
     const showEdit = ref(false)
 
     const totalNum = ref(0)
     const pageCount = ref(15)
     const currentPage = ref(1)
-    const refreshPagination = ref(false);
+    const refreshPagination = ref(false)
 
     onMounted(() => {
       getApps()
@@ -143,7 +154,7 @@ export default {
       refreshPagination,
       handleCurrentChange,
     }
-  }
+  },
 }
 </script>
 
@@ -163,7 +174,6 @@ export default {
       font-size: 16px;
       font-weight: 500;
     }
-
   }
 
   .pagination {
@@ -171,6 +181,5 @@ export default {
     justify-content: flex-end;
     margin: 20px;
   }
-
 }
 </style>
