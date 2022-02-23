@@ -12,7 +12,11 @@
         <el-table-column prop="name" label="App名称"/>
         <el-table-column prop="name_en" label="App英文名"/>
         <el-table-column prop="catalogue.name" label="分类"/>
-        <el-table-column label="包名"/>
+        <el-table-column label="包名">
+          <template #default="scope">
+            <p v-for="app_rel in scope.row.app_rels" >{{app_rel.package_name}}</p>
+          </template>
+        </el-table-column>
         <el-table-column label="操作">
           <template #default="scope">
             <el-button plain size="mini" type="primary"
@@ -60,8 +64,8 @@ export default {
     const showEdit = ref(false)
 
     const totalNum = ref(0)
-    const pageCount = ref(0)
-    const currentPage = ref(0)
+    const pageCount = ref(15)
+    const currentPage = ref(1)
     const refreshPagination = ref(false);
 
     onMounted(() => {
@@ -73,10 +77,13 @@ export default {
         appLoading.value = true
         refreshPagination.value = false
 
-        const data = await appModel.getApps()
+        const data = await appModel.getApps({
+          count: pageCount.value,
+          page: currentPage.value,
+        })
         apps.value = data.items
         totalNum.value = data.total
-        pageCount.value = data.total_page
+        pageCount.value = data.count
         currentPage.value = data.page
 
         appLoading.value = false

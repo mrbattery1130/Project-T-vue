@@ -32,12 +32,17 @@ class App {
     return res
   }
 
-  async getApps() {
-    return _axios({
-      method: 'get',
-      url: 'v1/app',
-      handleError: true,
+  async getApps({count = this.uCount, page = this.uPage}) {
+    // return _axios({
+    //   method: 'get',
+    //   url: 'v1/app',
+    //   handleError: true,
+    // })
+    const res = await get('v1/app', {
+      count,
+      page,
     })
+    return res
   }
 }
 
