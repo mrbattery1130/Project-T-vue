@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="title">
-      <span>{{ editAppId ? '编辑App' : '创建App' }}</span>
+      <span>{{ appId ? '编辑App' : '创建App' }}</span>
       <span class="back" @click="back"> <i class="iconfont icon-fanhui"></i> 返回 </span>
     </div>
 
@@ -9,7 +9,7 @@
       <el-form :model="editApp" ref="form" label-position="right" label-width="100px" v-loading="formLoading">
         <el-row :gutter="20">
           <el-col :span="12">
-            <el-form-item label="ID">{{ editAppId ? editAppId : '未定义' }}</el-form-item>
+            <el-form-item label="ID">{{ appId ? appId : '未定义' }}</el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="分类">
@@ -47,11 +47,12 @@
         <el-row>
           <el-form-item class="submit">
             <el-button type="primary" @click="submitForm">保 存</el-button>
-            <el-button @click="resetForm">重 置</el-button>
+            <!--            <el-button @click="resetForm">重 置</el-button>-->
           </el-form-item>
         </el-row>
 
-        <el-form-item label="App发行版" v-if="editAppId">
+        <el-form-item label="App发行版" v-if="appId">
+          <el-button type="primary" @click="handleAddAppRel">新增App发行版</el-button>
           <el-table :data="editAppRels" v-loading="appRelsLoading">
             <el-table-column prop="id" label="ID" width="80px" />
             <el-table-column prop="package_name" label="包名" />
@@ -67,7 +68,25 @@
       </el-form>
     </div>
 
-    <el-dialog v-model="showEdit" title="修改App发行版" width="30%"> </el-dialog>
+    <el-dialog v-model="showEdit" :title="editAppRelId ? '编辑App发行版' : '创建App发行版'" width="50%">
+      <el-form
+        :model="editAppRel"
+        ref="formAppRel"
+        label-position="right"
+        label-width="100px"
+        v-loading="formAppRelLoading"
+      >
+        <el-form-item label="包名">
+          <el-input v-model="editAppRel.package_name" />
+        </el-form-item>
+        <el-form-item label="启动类">
+          <el-input v-model="editAppRel.launch_name" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="submitAppRelForm">保 存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
   </div>
 </template>
 
@@ -86,6 +105,7 @@ export default {
     },
   },
   setup(props, context) {
+    const appId = ref(0)
     const editApp = reactive({
       name: '',
       name_en: '',
@@ -108,12 +128,14 @@ export default {
     const showEdit = ref(false)
 
     const editAppRelId = ref(0)
-    const editAppRel = reactive({ package_name: '', launch_name: '' })
+    const editAppRel = reactive({ app_id: 0, package_name: '', launch_name: '' })
     const formAppRel = ref(null)
+    const formAppRelLoading = ref(false)
 
     onMounted(() => {
       getCatalogues()
       if (props.editAppId) {
+        appId.value = props.editAppId
         getApp()
         getAppRels()
       }
@@ -121,7 +143,7 @@ export default {
 
     const getApp = async () => {
       formLoading.value = true
-      const res = await appModel.getApp(props.editAppId)
+      const res = await appModel.getApp(appId.value)
       listAssign(editApp, res)
       formLoading.value = false
     }
@@ -135,9 +157,16 @@ export default {
 
     const getAppRels = async () => {
       appRelsLoading.value = true
-      const data = await appRelModel.getAppRelsByApp(props.editAppId)
+      const data = await appRelModel.getAppRelsByApp(appId.value)
       editAppRels.value = data
       appRelsLoading.value = false
+    }
+
+    const getAppRel = async () => {
+      formAppRelLoading.value = true
+      const data = await appRelModel.getAppRel(editAppRelId.value)
+      listAssign(editAppRel, data)
+      formAppRelLoading.value = false
     }
 
     const back = () => {
@@ -154,15 +183,19 @@ export default {
       form.value.validate(async valid => {
         if (valid) {
           let res = {}
-          if (props.editAppId) {
-            res = await appModel.editApp(props.editAppId, editApp)
-            context.emit('editClose')
+          if (appId.value) {
+            res = await appModel.editApp(appId.value, editApp)
           } else {
             res = await appModel.createApp(editApp)
-            context.emit('editClose')
           }
-          if (res.code < window.MAX_SUCCESS_CODE) {
-            ElMessage.success(`${res.message}`)
+          // if (res.code < window.MAX_SUCCESS_CODE) {
+          //   ElMessage.success(`${res.message}`)
+          //
+          // }
+          if (res.id) {
+            appId.value = res.id
+            await getApp()
+            await getAppRels()
           }
         } else {
           console.error('error submit!!')
@@ -170,10 +203,17 @@ export default {
         }
       })
     }
-    const handleAddAppRel = () => {}
+    const handleAddAppRel = () => {
+      showEdit.value = true
+      editAppRelId.value = null
+
+      editAppRel.package_name = ''
+      editAppRel.launch_name = ''
+    }
     const handleEditAppRel = id => {
       showEdit.value = true
       editAppRelId.value = id
+      getAppRel()
     }
     const handleDeleteAppRel = id => {
       ElMessageBox.confirm('此操作将永久删除该App发行版, 是否继续?', '提示', {
@@ -189,10 +229,33 @@ export default {
         }
       })
     }
-
+    // 提交表单
+    const submitAppRelForm = async () => {
+      formAppRel.value.validate(async valid => {
+        if (valid) {
+          editAppRel.app_id = appId.value
+          let res = {}
+          if (editAppRelId.value) {
+            res = await appRelModel.editAppRel(editAppRelId.value, editAppRel)
+          } else {
+            res = await appRelModel.createAppRel(editAppRel)
+          }
+          showEdit.value = false
+          await getApp()
+          await getAppRels()
+          if (res.code < window.MAX_SUCCESS_CODE) {
+            ElMessage.success(`${res.message}`)
+          }
+        } else {
+          console.error('error submit!!')
+          ElMessage.error('请将信息填写完整')
+        }
+      })
+    }
     return {
       back,
       form,
+      appId,
       editApp,
       submitForm,
       resetForm,
@@ -205,8 +268,11 @@ export default {
       handleEditAppRel,
       handleDeleteAppRel,
       showEdit,
+      editAppRelId,
       editAppRel,
       formAppRel,
+      formAppRelLoading,
+      submitAppRelForm,
     }
   },
 }
