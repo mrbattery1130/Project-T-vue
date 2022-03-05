@@ -106,7 +106,7 @@ export default {
     // 选择图标包
     const handleChange = () => {
       router.push({
-        path: Route.path, // '/iconpack/detail'
+        path: route.path, // '/iconpack/detail'
         query: { id: id.value },
       })
     }
