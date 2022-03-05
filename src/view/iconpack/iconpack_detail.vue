@@ -12,10 +12,18 @@
       </el-select>
     </div>
     <el-table :data="icons" v-loading="iconLoading">
-      <el-table-column type="index" :index="indexMethod" width="80px" label="序号" />
-      <el-table-column prop="id" label="ID" width="80px" />
-      <el-table-column prop="url" label="URL" />
-      <el-table-column prop="app.name" label="App名称" />
+      <el-table-column type="index" :index="indexMethod" width="80px" label="序号"/>
+      <el-table-column prop="id" label="ID" width="80px"/>
+      <el-table-column label="URL">
+        <template #default="scope">
+          <el-image :key="scope.row.url" :src="scope.row.url" lazy>
+            <template #error>
+                <span>图片加载失败：<br/>{{scope.row.url}}</span>
+            </template>
+          </el-image>
+        </template>
+      </el-table-column>
+      <el-table-column prop="app.name" label="App名称"/>
     </el-table>
 
     <!-- 分页 -->
@@ -35,8 +43,8 @@
 </template>
 
 <script>
-import { onMounted, ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
+import {onMounted, ref} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
 import iconpackModel from '@/model/iconpack'
 import iconModel from '@/model/icon'
 
@@ -107,7 +115,7 @@ export default {
     const handleChange = () => {
       router.push({
         path: route.path, // '/iconpack/detail'
-        query: { id: id.value },
+        query: {id: id.value},
       })
     }
 
