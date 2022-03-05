@@ -1,4 +1,4 @@
-import _axios, {_delete, get, put} from "lin/plugin/axios";
+import _axios, { _delete, get, put } from 'lin/plugin/axios'
 
 class Icon {
   async createIcon(data) {
@@ -14,12 +14,14 @@ class Icon {
     return res
   }
 
-  async getIcons() {
-    return _axios({
-      method: 'get',
-      url: 'v1/icon',
-      handleError: true,
+  async getIcons({ count = this.uCount, page = this.uPage, iconpack_id, app_id }) {
+    const res = await get('v1/icon', {
+      count,
+      page,
+      iconpack_id,
+      app_id,
     })
+    return res
   }
 
   async editIcon(id, info) {
@@ -27,7 +29,7 @@ class Icon {
     return res
   }
 
-  async deleteIcon(id,) {
+  async deleteIcon(id) {
     const res = await _delete(`v1/icon/${id}`)
     return res
   }
